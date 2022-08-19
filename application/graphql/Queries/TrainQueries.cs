@@ -18,15 +18,8 @@ namespace TestProjectGraphQL.application.graphql.Queries
 
         //Get запросы связанные с поездами
 
-        public IEnumerable<Train> GetAllTrain()
-        {
-            return _trains.GetAllTrain();
-        }
+        public IEnumerable<Train> GetAllTrain() => _trains.GetAllTrain();
 
-        public IEnumerable<Train> GetAllTrainInOrder()
-        {
-            var result = _trains.GetAllTrainInOrder();
-            return result;
-        }
+        public IEnumerable<Train> GetAllTrainInOrder() => _trains.GetAllTrainInOrder();
     }
 }

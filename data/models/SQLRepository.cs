@@ -35,23 +35,19 @@ namespace TestProjectGraphQL.data.models
 
         public void ChangeTrain(Guid id, TrainInputType trainInputType)
         {
-            var result = (from p in _dbContext.Trains
-                          where p.ID == id
-                          select p).ToList();
+            var result = _dbContext.Trains.FirstOrDefault(t => t.ID == id);
 
-            result[0].Name = trainInputType.Name;
-            result[0].Description = trainInputType.Description;
-            result[0].TrainType = trainInputType.TrainType;
-            result[0].Capacity = trainInputType.Capacity;
+            result.Name = trainInputType.Name;
+            result.Description = trainInputType.Description;
+            result.TrainType = trainInputType.TrainType;
+            result.Capacity = trainInputType.Capacity;
             _dbContext.SaveChanges();
         }
 
         public void DeleteTrain(Guid id)
         {
-            var result = (from p in _dbContext.Trains
-                          where p.ID == id
-                          select p).ToList();
-            result[0].Deleted = true;
+            var result = _dbContext.Trains.FirstOrDefault(p => p.ID == id);
+            result.Deleted = true;
             _dbContext.SaveChanges();
         }
 
@@ -64,18 +60,9 @@ namespace TestProjectGraphQL.data.models
 
         //Получение данных , связанных с поездами 
 
-        public IEnumerable<Train> GetAllTrain()
-        {
-            return _dbContext.Trains;
-        }
+        public IEnumerable<Train> GetAllTrain() => _dbContext.Trains;
 
-        public IEnumerable<Train> GetAllTrainInOrder()
-        {
-            var result = from p in _dbContext.Trains
-                         where p.InOrder == true
-                         select p;
-            return result;
-        }
+        public IEnumerable<Train> GetAllTrainInOrder() => _dbContext.Trains.Where(p => p.InOrder == true);
 
         /// <summary>
         /// Метод , который возвращает TrainID при создании заказа
@@ -136,41 +123,15 @@ namespace TestProjectGraphQL.data.models
 
         //Получение данных , связанных с заказами
 
-        public IEnumerable<Order> GetAllOrder()
-        {
-            return _dbContext.Orders;
-        }
+        public IEnumerable<Order> GetAllOrder() => _dbContext.Orders;
 
-        public IEnumerable<Order> GetAllOrderCompleted()
-        {
-            var result = from p in _dbContext.Orders
-                         where p.OrderProgress == OrderProgress.Completed
-                         select p;
-            return result;
-        }
+        public IEnumerable<Order> GetAllOrderCompleted() => _dbContext.Orders.Where(p => p.OrderProgress == OrderProgress.Completed);
 
-        public IEnumerable<Order> GetAllOrderCanceled()
-        {
-            var result = from p in _dbContext.Orders
-                         where p.OrderProgress == OrderProgress.Canceled
-                         select p;
-            return result;
-        }
+        public IEnumerable<Order> GetAllOrderCanceled() => _dbContext.Orders.Where(p => p.OrderProgress == OrderProgress.Canceled);
 
-        public IEnumerable<Order> GetAllOrderInProgress()
-        {
-            var result = from p in _dbContext.Orders
-                         where p.OrderProgress == OrderProgress.InProgress
-                         select p;
-            return result;
-        }
+        public IEnumerable<Order> GetAllOrderInProgress() => _dbContext.Orders.Where(p => p.OrderProgress == OrderProgress.InProgress);
 
-        public IEnumerable<Order> GetAllOrderCompletedByTrain(Guid id)
-        {
-            var result = from p in _dbContext.Orders
-                         where p.TrainID == id && p.OrderProgress == OrderProgress.Completed
-                         select p;
-            return result;
-        }
+        public IEnumerable<Order> GetAllOrderCompletedByTrain(Guid id) => _dbContext.Orders.Where(p => p.OrderProgress == OrderProgress.Completed 
+                                                                                                    && p.TrainID == id);
     }
 }

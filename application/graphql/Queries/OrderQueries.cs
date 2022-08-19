@@ -24,34 +24,14 @@ namespace TestProjectGraphQL.application.graphql.Queries
 
         //Get запросы связанные с заказами
 
-        public IEnumerable<Order> GetAllOrder()
-        {
-            var result = _orders.GetAllOrder();
-            return result;
-        }
+        public IEnumerable<Order> GetAllOrder() => _orders.GetAllOrder();
 
-        public IEnumerable<Order> GetAllOrderCanceled()
-        {
-            var result = _orders.GetAllOrderCanceled();
-            return result;
-        }
+        public IEnumerable<Order> GetAllOrderCanceled() => _orders.GetAllOrderCanceled();
 
-        public IEnumerable<Order> GetAllOrderCompleted()
-        {
-            var result = _orders.GetAllOrderCompleted();
-            return result;
-        }
+        public IEnumerable<Order> GetAllOrderCompleted() => _orders.GetAllOrderCompleted();
 
-        public IEnumerable<Order> GetAllOrderCompletedByTrain(Guid id)
-        {
-            var result = _orders.GetAllOrderCompletedByTrain(id);
-            return result;
-        }
+        public IEnumerable<Order> GetAllOrderCompletedByTrain(Guid id) => _orders.GetAllOrderCompletedByTrain(id);
 
-        public IEnumerable<Order> GetAllOrderInProgress()
-        {
-            var result = _orders.GetAllOrderInProgress();
-            return result;
-        }
+        public IEnumerable<Order> GetAllOrderInProgress() => _orders.GetAllOrderInProgress();
     }
 }
